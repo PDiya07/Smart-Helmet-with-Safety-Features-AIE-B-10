@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Helmet</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background: linear-gradient(to right, #0A3D62, #10E698);
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        header {
+            font-size: 28px;
+            font-weight: bold;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+        }
+        .box {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+        }
+        h1, h2 {
+            color: #ffcc00;
+        }
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 25px;
+            font-size: 18px;
+            color: white;
+            background: #ff5733;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+        .btn:hover {
+            background: #ff7043;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+
+<header> Smart Helmet - More Details</header>
+
+<div class="container">
+    <div class="box">
+        <h1>Implementation Details</h1>
+        <p> The system integrates **GPS, GSM, and an accelerometer** to detect accidents and send alerts. A pressure sensor ensures the helmet is worn.</p>
+    </div>
+
+    <div class="box">
+        <h2>Technology Used</h2>
+        <p>**Microcontroller:** Arduino/ESP32 <br>**GPS Module:** NEO-6M <br>**GSM Module:** SIM800L <br> **Accelerometer:** MPU6050</p>
+    </div>
+
+    <div class="box">
+        <h2>Future Enhancements</h2>
+        <p>AI-based Crash Prediction <br>  Mobile App for Live Tracking <br>  Enhanced Voice Commands</p>
+    </div>
+
+    <!-- Back Button -->
+    <a href="EEE code.html" class="btn">← Back</a>
+    <!--Next button-->
+    <a href="EEE code3.html" class="btn"> Next→</a>
+</div>
+
+</body>
+</html>
+

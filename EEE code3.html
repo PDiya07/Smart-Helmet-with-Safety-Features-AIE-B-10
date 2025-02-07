@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Helmet - More Details</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background: linear-gradient(to right, #0A3D62, #10E698);
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        header {
+            font-size: 28px;
+            font-weight: bold;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+        }
+        .box {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+        }
+        h1, h2 {
+            color: #ffcc00;
+        }
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 25px;
+            font-size: 18px;
+            color: white;
+            background: #ff5733;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+        .btn:hover {
+            background: #ff7043;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <header>More information about the smart helmet</header>
+    <div class="container">
+        <div class="box">
+            <h1>Problem Statement</h1>
+<p>1. Helmet Wearing Enforcement
+    An IR sensor inside the helmet detects if the rider is wearing it.
+    If the helmet is removed while riding, an alert system (buzzer/vibration) warns the rider.
+    Helps enforce continuous helmet usage and prevents risky riding behaviour.<br>
+    2. Alcohol Detection System
+    The MQ-3 alcohol sensor measures the rider’s breath alcohol level
+    If the system detects alcohol, an alert message is sent to a registered emergency contact.
+    Helps prevent drunk driving and potential accidents due to intoxication.<br>
+    3. Accident Detection Protocol
+    A vibration sensor detects sudden impacts or crashes.
+    If the impact exceeds a predefined threshold, the system assumes an accident has occurred.
+    Once an accident is detected, the system automatically triggers an emergency alert via the GSM module.
+    An SOS message is sent to emergency contacts and local medical services.
+    The GPS module provides the precise accident location in real time.
+    Helps emergency responders reach the accident site quickly, improving the chances of saving lives.
+</p>
+<div class="container">
+    <div class="box">
+        <h1>Challenges and mitigation</h1>
+        <p>
+            1️⃣ Sensor Calibration
+            Challenge: Sensors may produce inaccurate readings due to environmental conditions (temperature, humidity, vibrations).
+            Mitigation: Use advanced signal processing techniques to filter noise and improve accuracy.<br>
+            2️⃣ Communication Reliability
+            Challenge: Wireless data transmission may face interference, delays, or loss.
+            Mitigation: Implement redundant communication protocols (RF & GSM) to ensure seamless data flow.<br>
+            3️⃣ Power Consumption
+            Challenge: Multiple sensors and communication modules may drain battery life quickly.
+            Mitigation: Adopt efficient power management, such as low-power components, sleep modes, and optimized power distribution.
+            Key Takeaway: Smart optimization techniques ensure reliable, efficient, and accurate system performance.</p>
+             <!-- Back Button -->
+    <a href="EEE code2.html""EEE code1.html" class="btn">← Back</a>
+     

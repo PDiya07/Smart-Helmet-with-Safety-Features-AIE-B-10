@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rider Information Form</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: url('file:///C:/Users/keert/OneDrive/Desktop/EEE+HTML/bg2.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color:white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+            position: relative;
+        }
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: inherit;
+            filter: blur(8px);
+            z-index: -1;
+        }
+        .form-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        h2 {
+            text-align: center;
+            color: #ffcc00;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: #ff4500;
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .submit-btn:hover {
+            background: #ff6347;
+        }
+        body {
+    opacity: 0;
+    animation: fadeIn 1s ease-in forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Rider Information Form</h2>
+        <form id="riderForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="bikeNumber">Bike Number:</label>
+            <input type="text" id="bikeNumber" name="bikeNumber" required>
+
+            <label for="model">Model:</label>
+            <input type="text" id="model" name="model" required>
+
+            <label for="regNum">Licence ID:</label>
+            <input type="text" id="regNum" name="regNum" required>
+
+            <label for="emergencyContact">Emergency Contact Number:</label>
+            <input type="tel" id="emergencyContact" name="emergencyContact" placeholder="Enter phone number" required>
+
+            <button type="button" class="submit-btn" onclick="submitForm()">Submit</button>
+        </form>
+    </div>
+
+    
+    </div>
+
+    <script>
+        function submitForm() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const bikeNumber = document.getElementById('bikeNumber').value;
+            const model = document.getElementById('model').value;
+            const regNum = document.getElementById('regNum').value;
+
+            // Save data to localStorage
+            localStorage.setItem('riderName', name);
+            localStorage.setItem('riderEmail', email);
+            localStorage.setItem('bikeNumber', bikeNumber);
+            localStorage.setItem('bikeModel', model);
+            localStorage.setItem('regNum', regNum);
+
+            // Redirect to the next page
+            window.location.href = 'EEE+HTML3.html';
+        }
+    </script>
+      <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+      <script>
+          gsap.from("h1, h2", { 
+              opacity: 0, 
+              y: -20, 
+              duration: 1, 
+              stagger: 0.2 
+          });
+      </script>
+      </body>
+      </html>
+      
+        
+
+

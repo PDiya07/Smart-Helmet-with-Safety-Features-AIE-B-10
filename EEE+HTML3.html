@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bike Location & Speed Tracker</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+       body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: url('file:///C:/Users/keert/OneDrive/Desktop/EEE+HTML/bg2.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color:white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+            position: relative;
+        }
+        .info-container {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .btn {
+            padding: 10px 20px;
+            background: #ff4500;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .btn:hover {
+            background: #ff6347;
+        }
+        #map {
+            height: 400px;
+            width: 100%;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+        body {
+    opacity: 0;
+    animation: fadeIn 1s ease-in forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+    </style>
+</head>
+<body>
+    <h2>Bike Location & Speed Tracker</h2>
+    <div class="info-container">
+        <p><strong>Bike Number:</strong> <span id="bikeNumber">N/A</span></p>
+        <p><strong>License Number:</strong> <span id="licenseNumber">N/A</span></p>
+        <p><strong>Latitude:</strong> <span id="latitude">N/A</span></p>
+        <p><strong>Longitude:</strong> <span id="longitude">N/A</span></p>
+        <p><strong>Speed:</strong> <span id="speed">N/A</span> km/h</p>
+        <button class="btn" onclick="getLocation()">Get Location & Speed</button>
+        <button class="btn" onclick="sendSMS()">Send Crash Alert</button>
+    </div>
+    
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        let map;
+        let marker;
+
+        function initMap(latitude = 0, longitude = 0) {
+            if (!map) {
+                map = L.map('map').setView([latitude, longitude], 13);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 19,
+                    attribution: '© OpenStreetMap contributors'
+                }).addTo(map);
+                marker = L.marker([latitude, longitude]).addTo(map);
+            } else {
+                map.setView([latitude, longitude], 13);
+                marker.setLatLng([latitude, longitude]);
+            }
+        }
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.watchPosition((position) => {
+                    const lat = position.coords.latitude;
+                    const lng = position.coords.longitude;
+                    document.getElementById('latitude').innerText = lat.toFixed(6);
+                    document.getElementById('longitude').innerText = lng.toFixed(6);
+                    
+                    const speed = position.coords.speed;
+                    document.getElementById('speed').innerText = speed ? (speed * 3.6).toFixed(2) : '0';
+
+                    initMap(lat, lng);
+                }, (error) => {
+                    alert('Error getting location: ' + error.message);
+                });
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+
+        function sendSMS() {
+            const bikeNumber = document.getElementById('bikeNumber').innerText;
+            const licenseNumber = document.getElementById('licenseNumber').innerText;
+            const latitude = document.getElementById('latitude').innerText;
+            const longitude = document.getElementById('longitude').innerText;
+            const speed = document.getElementById('speed').innerText;
+
+            const mapsLink = `https://www.google.com/maps?q=${latitude},${longitude}`;
+            
+            const message = `🚨 Crash Alert! 🚨\nBike ${bikeNumber} (License: ${licenseNumber}) is at:\nLatitude: ${latitude}\nLongitude: ${longitude}\nSpeed: ${speed} km/h\nView on Maps: ${mapsLink}`;
+            
+            alert('SMS Sent: ' + message);
+        }
+    </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+  <script>
+      gsap.from("h1, h2", { 
+          opacity: 0, 
+          y: -20, 
+          duration: 1, 
+          stagger: 0.2 
+      });
+  </script>
+  </body>
+  </html>
+
+  <!-- Now the SMS alert includes a Google Maps link to the location! 🌍🚀 -->
+

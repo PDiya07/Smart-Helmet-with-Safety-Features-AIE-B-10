@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Helmet Project</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: url('file:///C:/Users/keert/OneDrive/Desktop/EEE+HTML/bg2.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color:white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+            position: relative;
+        }
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: inherit;
+            filter: blur(8px);
+            z-index: -1;
+        }
+        header {
+            
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+             max-width: 1200px;
+             margin: 20px auto;
+             padding: 20px;
+             
+             border-radius: 10px;
+             
+        }
+
+        nav a {
+            margin: 0 15px;
+            color: #ffcc00;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        section {
+            padding: 20px;
+        }
+        footer {
+            background:burlywood;
+            text-align: center;
+            padding: 10px;
+            body {
+    opacity: 0;
+    animation: fadeIn 1s ease-in forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Home Page -->
+    <header>
+        <h1>Welcome to the Smart Helmet Project</h1>
+            <div class="container">
+                <h2>Introduction to electrical engineering and User Interface</h2>
+                <p>SMART HELMET WITH SAFETY FEATURES</p>
+            </div>
+            <div class="container">
+                <h1>TEAM MATES</h1>
+                <h2>Diya Prakash-CB.SC.U4AIE24111</h2>
+                <h2>Dondluru Keerthana-CB.SC.U4AIE24112</h2>
+                <h2>V.R.Sridevi-CB.SC.U4AIE24166</h2>
+            </div>
+            
+        </div>
+        <div class="button-container" style="text-align: center; margin-top: 20px;">
+            <a href="EEE+HTML2.html" class="next-btn" style="
+                display: inline-block;
+                padding: 12px 24px;
+                font-size: 18px;
+                color: #fff;
+                background:brown;
+                text-decoration: none;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+                transition: transform 0.2s ease, background 0.3s ease;
+            ">Next</a>
+        </div>
+        </header>
+        <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+<script>
+    gsap.from("h1, h2", { 
+        opacity: 0, 
+        y: -20, 
+        duration: 1, 
+        stagger: 0.2 
+    });
+</script>
+</body>
+</html>
+
+        </body>
+</html>
+        
+
+
+

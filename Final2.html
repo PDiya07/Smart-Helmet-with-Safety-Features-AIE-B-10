@@ -1,0 +1,196 @@
+<!-- Full updated code: copy from DOCTYPE to bottom -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Helmet Features</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body, html {
+      height: 100%;
+      font-family: 'Orbitron', sans-serif;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    .bg-image {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('Bikerzone1.jpg') no-repeat center center fixed;
+      background-size: cover;
+      z-index: -3;
+    }
+
+    .bg-image::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: -2;
+    }
+
+    .container {
+      padding: 60px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .section-title {
+      font-size: 2.5em;
+      text-align: center;
+      margin-bottom: 40px;
+      color: #00f7ff;
+      text-shadow: 0 0 10px #00f7ff;
+    }
+
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 30px;
+      width: 280px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 0 20px #00f7ff;
+    }
+
+    .card i {
+      font-size: 40px;
+      color: #00f7ff;
+      margin-bottom: 15px;
+    }
+
+    .card h3 {
+      font-size: 1.4em;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      font-size: 0.95em;
+      color: #ccc;
+    }
+
+    .progress-section {
+      margin-top: 60px;
+      width: 100%;
+      max-width: 800px;
+    }
+
+    .progress-bar {
+      margin-bottom: 25px;
+    }
+
+    .progress-label {
+      font-size: 1.1em;
+      margin-bottom: 5px;
+    }
+
+    .bar-container {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 30px;
+      overflow: hidden;
+    }
+
+    .bar {
+      height: 20px;
+      background: linear-gradient(90deg, #00f7ff, #00c6ff);
+      width: 0;
+      border-radius: 30px;
+      transition: width 2s ease-in-out;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-image"></div>
+  <div class="container">
+    <div class="section-title">Smart Helmet Features</div>
+
+    <div class="cards">
+      <div class="card" onclick="speakFeature('Alcohol Detection activated. Monitoring breath levels in real time.'); setTimeout(() => location.href='alcohol-detection.html', 2000);">
+        <i class="fas fa-wind"></i>
+        <h3>Alcohol Detection</h3>
+        <p>Monitors alcohol levels in real time using breath sensors.</p>
+      </div>
+      <div class="card" onclick="speakFeature('Accident prevention activated. Engine disabled if alcohol is detected.'); setTimeout(() => location.href='accident-prevention.html', 2000);">
+        <i class="fas fa-shield-alt"></i>
+        <h3>Accident Prevention</h3>
+        <p>Automatically disables engine if alcohol is detected.</p>
+      </div>
+      <div class="card" onclick="speakFeature('Emergency alert system activated. Sending GPS location to your family.'); setTimeout(() => location.href='emergency-alerts.html', 2000);">
+        <i class="fas fa-bell"></i>
+        <h3>Emergency Alerts</h3>
+        <p>Sends alert messages with GPS location to family members.</p>
+      </div>
+      <div class="card" onclick="speakFeature('Smart integration with IoT activated for advanced control.'); setTimeout(() => location.href='smart-integration.html', 2000);">
+        <i class="fas fa-microchip"></i>
+        <h3>Smart Integration</h3>
+        <p>Integrated with IoT for enhanced safety and control.</p>
+      </div>
+    </div>
+
+    <div class="progress-section">
+      <div class="progress-bar">
+        <div class="progress-label">Detection Accuracy</div>
+        <div class="bar-container"><div class="bar" style="width: 92%;"></div></div>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-label">Protection System</div>
+        <div class="bar-container"><div class="bar" style="width: 88%;"></div></div>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-label">Alert Response Time</div>
+        <div class="bar-container"><div class="bar" style="width: 95%;"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function speakFeature(text) {
+      if ('speechSynthesis' in window) {
+        const msg = new SpeechSynthesisUtterance(text);
+        msg.rate = 1;
+        msg.pitch = 1;
+        msg.lang = 'en-US';
+        window.speechSynthesis.cancel(); // stops other voice
+        window.speechSynthesis.speak(msg);
+      }
+    }
+
+    window.onload = function () {
+      // Animate bars
+      const bars = document.querySelectorAll('.bar');
+      bars.forEach(bar => {
+        const width = bar.style.width;
+        bar.style.width = '0';
+        setTimeout(() => bar.style.width = width, 100);
+      });
+
+      // Welcome + progress voice
+      speakFeature("Welcome Keerthana. Here are the Smart Helmet features. Detection Accuracy 92 percent. Protection System 88 percent. Alert Response Time 95 percent.");
+    };
+  </script>
+</body>
+</html>

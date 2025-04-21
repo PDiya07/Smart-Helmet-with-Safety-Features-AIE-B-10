@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Integration - Accident Prevention</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Orbitron', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: url('Bikerzone1.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+    }
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.6);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+    .container {
+      text-align: center;
+      padding: 60px 20px;
+    }
+    .title {
+      font-size: 2.5em;
+      color: #00f7ff;
+      margin-bottom: 30px;
+      text-shadow: 0 0 10px #00f7ff;
+    }
+    .info-box {
+      background-color: rgba(255, 255, 255, 0.1);
+      margin: 20px auto;
+      padding: 20px;
+      border-radius: 15px;
+      width: 80%;
+      box-shadow: 0 0 15px #00f7ff;
+    }
+    .info-box h3 {
+      color: #00f7ff;
+      margin-bottom: 10px;
+    }
+    .info-box p {
+      font-size: 1.2em;
+      line-height: 1.5em;
+    }
+    .btn-back {
+      margin-top: 40px;
+      padding: 12px 28px;
+      border: none;
+      border-radius: 30px;
+      background: linear-gradient(to right, #00f7ff, #00c6ff);
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .btn-back:hover {
+      transform: scale(1.05);
+      background: linear-gradient(to right, #00c6ff, #00f7ff);
+      box-shadow: 0 0 10px #00f7ff;
+    }
+    .slider-container input {
+      width: 60%;
+    }
+    .warning {
+      color: #ff3e3e;
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+    #loader {
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    .neon-text {
+      font-size: 2em;
+      color: #00f7ff;
+      text-shadow: 0 0 5px #00f7ff, 0 0 10px #00f7ff, 0 0 20px #00f7ff;
+    }
+    #emergencyVideo {
+      display: none;
+      width: 80%;
+      margin: 20px auto;
+      border: 3px solid #00f7ff;
+      border-radius: 12px;
+    }
+    #emergencyWarning {
+      display: none;
+      font-size: 1.1em;
+      color: #ff3e3e;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body onload="initApp()">
+  <div id="loader">
+    <div class="neon-text">Initializing Smart Helmet System...</div>
+  </div>
+  <div class="overlay"></div>
+  <div class="container" id="mainContent" style="display: none;">
+    <div class="title">Smart Helmet: Accident Prevention</div>
+
+    <div class="info-box">
+      <h3>🪖 Helmet Detection & Engine Lock</h3>
+      <p>Status: <strong>Helmet Worn ✅</strong></p>
+    </div>
+
+    <div class="info-box">
+      <h3>🍻 Alcohol Detection</h3>
+      <p>Status: <strong>Safe</strong></p>
+    </div>
+
+    <div class="info-box">
+      <h3>😴 Drowsiness Detection</h3>
+      <p>Status: <strong>Eyes Open ✅</strong></p>
+    </div>
+
+    <div class="info-box">
+      <h3>🏍️ Speed Monitoring</h3>
+      <div class="slider-container">
+        <label for="speed">Set Speed: <span id="speedValue">50</span> km/h</label><br />
+        <input type="range" id="speed" min="0" max="120" value="50" onchange="checkSpeed()" />
+        <div class="warning" id="speedWarning"></div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <h3>📱 Voice Assistant</h3>
+      <button onclick="speak('Emergency activated. Help is on the way.')">Say Alert</button>
+    </div>
+
+    <div class="info-box">
+      <h3>📍 Location</h3>
+      <p id="locationStatus">Detecting location...</p>
+    </div>
+
+    <div class="info-box">
+      <h3>🚨 Emergency Video Popup</h3>
+      <button onclick="showEmergencyVideo()">Play Alert Video</button>
+      <p id="emergencyWarning">⚠️ This is a real-life crash simulation. Viewer discretion is advised.</p>
+      <video id="emergencyVideo" controls>
+        <source src="C:\Users\keert\OneDrive\Desktop\EEE+HTML\crashvideo.mp4"type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <button class="btn-back" onclick="window.location.href='Final2.html'">⬅ Back</button>
+  </div>
+
+  <script>
+    function initApp() {
+      setTimeout(() => {
+        document.getElementById("loader").style.display = "none";
+        document.getElementById("mainContent").style.display = "block";
+        detectLocation();
+      }, 2000);
+    }
+
+    function checkSpeed() {
+      const speed = document.getElementById("speed").value;
+      document.getElementById("speedValue").textContent = speed;
+      const warning = document.getElementById("speedWarning");
+      if (speed > 80) {
+        warning.textContent = "⚠️ Over Speeding! Slow down immediately!";
+        let msg = new SpeechSynthesisUtterance("Warning! You are over speeding. Please slow down.");
+        window.speechSynthesis.speak(msg);
+      } else {
+        warning.textContent = "";
+      }
+    }
+
+    function speak(text) {
+      let msg = new SpeechSynthesisUtterance(text);
+      window.speechSynthesis.speak(msg);
+    }
+
+    function detectLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position => {
+          document.getElementById("locationStatus").textContent =
+            `Latitude: ${position.coords.latitude.toFixed(3)}, Longitude: ${position.coords.longitude.toFixed(3)}`;
+        }, () => {
+          document.getElementById("locationStatus").textContent = "Unable to detect location.";
+        });
+      } else {
+        document.getElementById("locationStatus").textContent = "Geolocation is not supported.";
+      }
+    }
+
+    function showEmergencyVideo() {
+      document.getElementById("emergencyVideo").style.display = "block";
+      document.getElementById("emergencyWarning").style.display = "block";
+      document.getElementById("emergencyVideo").scrollIntoView({ behavior: "smooth" });
+    }
+  </script>
+</body>
+</html>
+

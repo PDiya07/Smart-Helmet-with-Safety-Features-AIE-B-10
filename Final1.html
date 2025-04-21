@@ -1,0 +1,219 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smart Helmet</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      height: 100%;
+      font-family: 'Orbitron', sans-serif;
+      overflow: hidden;
+    }
+
+    .bg-image {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url("Bikerzone1.jpg") no-repeat center center fixed;
+      background-size: cover;
+      z-index: -3;
+    }
+
+    .bg-image::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: -2;
+    }
+
+    #particles-js {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      color: #ffffff;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 600px;
+      animation: fadeIn 2s ease-in;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+    }
+
+    .hero h1 {
+      font-size: 3em;
+      margin-bottom: 20px;
+      background: linear-gradient(90deg, #00f7ff, #00d9ff, #00ffee);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: slideIn 1s ease-in-out;
+    }
+
+    .typewriter {
+      font-size: 1.2em;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 2px solid #00f7ff;
+      width: 0;
+      animation: typing 4s steps(40, end) forwards, blink 0.8s step-end infinite;
+    }
+
+    .hero img {
+      width: 120px;
+      margin-top: 30px;
+      animation: fadeIn 2.5s ease-in-out;
+      filter: drop-shadow(0 0 15px #00f7ff);
+    }
+
+    .hero button {
+      margin-top: 30px;
+      padding: 12px 28px;
+      border: none;
+      border-radius: 30px;
+      background: linear-gradient(to right, #00f7ff, #00c6ff);
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      animation: fadeIn 3s ease-in-out;
+    }
+
+    .hero button:hover {
+      transform: scale(1.05);
+      background: linear-gradient(to right, #00c6ff, #00f7ff);
+      box-shadow: 0 0 10px #00f7ff;
+    }
+
+    @keyframes slideIn {
+      0% { transform: translateY(-50px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes typing {
+      to { width: 100% }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: scale(0.9); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bg-image"></div>
+  <div id="particles-js"></div>
+
+  <div class="hero">
+    <div class="glass-card">
+      <h1>Smart Helmet</h1>
+      <div class="typewriter" id="slogan"></div>
+      <img src="https://cdn-icons-png.flaticon.com/512/1082/1082184.png" alt="Helmet" />
+      <button onclick="startApp()">Explore Features</button>
+    </div>
+  </div>
+
+  <!-- Particle Effect -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script>
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 70 },
+        color: { value: "#00f7ff" },
+        shape: { type: "circle" },
+        opacity: { value: 0.4 },
+        size: { value: 3 },
+        line_linked: {
+          enable: true,
+          distance: 120,
+          color: "#00f7ff",
+          opacity: 0.4,
+          width: 1
+        },
+        move: { enable: true, speed: 2 }
+      },
+      interactivity: {
+        events: {
+          onhover: { enable: true, mode: "repulse" },
+          onclick: { enable: true, mode: "push" }
+        },
+        modes: {
+          repulse: { distance: 100 },
+          push: { particles_nb: 4 }
+        }
+      },
+      retina_detect: true
+    });
+  </script>
+
+  <!-- Typewriter + Voice Greeting -->
+  <script>
+    const sloganText = "Your Ride. Your Safety. Your Smart Helmet.";
+    const sloganElement = document.getElementById("slogan");
+    let i = 0;
+
+    function typeWriter() {
+      if (i < sloganText.length) {
+        sloganElement.textContent += sloganText.charAt(i);
+        i++;
+        setTimeout(typeWriter, 50);
+      }
+    }
+
+    function sayGreeting() {
+      if ('speechSynthesis' in window) {
+        const msg = new SpeechSynthesisUtterance("Welcome Guys,SmartHelmet is ready. Your safety is our priority.");
+        msg.pitch = 1.1;
+        msg.rate = 1;
+        msg.volume = 1;
+        msg.lang = "en-US";
+        window.speechSynthesis.speak(msg);
+      }
+    }
+
+    function startApp() {
+      sayGreeting();
+      setTimeout(() => {
+        window.location.href = 'Final2.html';
+      }, 5000); // Delays redirection so voice can finish
+    }
+
+    window.onload = typeWriter;
+  </script>
+</body>
+</html>
+ 
+

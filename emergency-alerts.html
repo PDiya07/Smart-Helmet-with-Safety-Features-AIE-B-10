@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Accident Prevention</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Orbitron', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: url('Bikerzone1.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      overflow-x: hidden;
+    }
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.6);
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -1;
+    }
+    .loader {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: black;
+      color: #00f7ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5em;
+      z-index: 9999;
+      animation: fadeOut 3s forwards;
+    }
+    @keyframes fadeOut {
+      0% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { opacity: 0; display: none; }
+    }
+    .container {
+      text-align: center;
+      padding: 60px 20px;
+    }
+    .title {
+      font-size: 2.5em;
+      color: #00f7ff;
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px #00f7ff;
+    }
+    .info-box {
+      background-color: rgba(255, 255, 255, 0.1);
+      margin: 20px auto;
+      padding: 20px;
+      border-radius: 15px;
+      width: 80%;
+      box-shadow: 0 0 15px #00f7ff;
+      position: relative;
+    }
+    .pulse {
+      width: 20px;
+      height: 20px;
+      background-color: #00f7ff;
+      border-radius: 50%;
+      position: absolute;
+      top: 10px; right: 10px;
+      animation: pulse 1s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(1.5); opacity: 0; }
+    }
+    .btn {
+      margin-top: 20px;
+      padding: 12px 28px;
+      border: none;
+      border-radius: 30px;
+      background: linear-gradient(to right, #00f7ff, #00c6ff);
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 10px #00f7ff;
+    }
+    .alert-box {
+      background-color: #ff0033;
+      color: white;
+      font-size: 1.5em;
+      padding: 10px;
+      margin-top: 20px;
+      border-radius: 10px;
+      animation: blink 1s infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+    .map, .chart, .countdown, .video-popup {
+      margin-top: 30px;
+    }
+    iframe {
+      border: 0;
+      width: 100%;
+      height: 200px;
+      border-radius: 10px;
+    }
+    .countdown {
+      font-size: 2em;
+      color: #ffcc00;
+    }
+    .dark-toggle {
+      position: absolute;
+      top: 20px; right: 20px;
+    }
+    .speedometer {
+      margin: 30px auto;
+      width: 200px;
+      height: 200px;
+      border: 10px solid #00f7ff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2em;
+      box-shadow: 0 0 30px #00f7ff;
+    }
+    #safetyChart {
+  width: 500px !important;
+  height: 500px !important;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+  </style>
+</head>
+<body>
+  <div class="loader">Booting Safety Modules... Initializing Sensors...</div>
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="title">Accident Prevention</div>
+    <button class="btn dark-toggle" onclick="toggleDarkMode()">🌓 Toggle Dark Mode</button>
+
+    <div class="info-box">
+      <div class="pulse"></div>
+      <h3>Helmet Detection</h3>
+      <p>Status: <strong>Worn ✅</strong></p>
+    </div>
+
+    <div class="info-box">
+      <div class="pulse"></div>
+      <h3>Alcohol Detection</h3>
+      <p>Status: <strong>Safe</strong></p>
+    </div>
+
+    <div class="info-box">
+      <div class="pulse"></div>
+      <h3>Speedometer</h3>
+      <div class="speedometer" id="speedDisplay">50</div>
+      <input type="range" min="0" max="120" value="50" onchange="updateSpeed(this.value)" />
+    </div>
+
+    <div class="info-box">
+      <div class="pulse"></div>
+      <h3>Impact Detection</h3>
+      <button class="btn" onclick="simulateAccident()">🚨 Simulate Accident</button>
+      <div id="alertBox" class="alert-box" style="display:none;">Emergency Detected! Sending alert in <span id="countdown">5</span> seconds...</div>
+    </div>
+
+    <div class="countdown" id="locationDisplay"></div>
+
+    <div class="chart">
+      <canvas id="safetyChart"></canvas>
+    </div>
+
+    <div class="map">
+      <iframe id="mapFrame" src="https://www.google.com/maps/embed?pb=!1m18..." allowfullscreen=""></iframe>
+    </div>
+
+    <div class="info-box">
+      <h3>Safety Score: <span id="score">92%</span> 🔋</h3>
+    </div>
+
+    <div class="info-box">
+      <h3>Emergency Contacts</h3>
+      <ul>
+        <li>📞 Mom - 9876543210</li>
+        <li>📞 Dad - 9876543211</li>
+        <li>📞 Friend - 9876543212</li>
+      </ul>
+    </div>
+    <button class="btn" onclick="window.location.href='Final2.html'">⬅ Back to Features</button>
+  </div>
+
+  <audio id="siren" src="https://www.soundjay.com/button/beep-09.mp3" preload="auto"></audio>
+
+  <script>
+    window.onload = () => {
+      setTimeout(() => document.querySelector('.loader').style.display = 'none', 3000);
+      const msg = new SpeechSynthesisUtterance("Hello Keerthana, safety systems online. Monitoring activated.");
+      speechSynthesis.speak(msg);
+    };
+
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+    }
+
+    function updateSpeed(val) {
+      document.getElementById("speedDisplay").innerText = val;
+      const score = 100 - (val > 80 ? (val - 80) * 2 : 0);
+      document.getElementById("score").innerText = `${Math.max(0, score)}%`;
+    }
+
+    const ctx = document.getElementById('safetyChart');
+    new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Helmet', 'Alcohol', 'Impact'],
+        datasets: [{
+          label: 'Safety Stats',
+          data: [100, 10, 0],
+          backgroundColor: ['#00f7ff', '#00c6ff', '#ff0033'],
+          hoverOffset: 5
+        }]
+      },
+      options: {
+        responsive: false,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            labels: {
+              color: '#ffffff',
+              font: {
+                size: 10
+              }
+            }
+          }
+        },
+        cutout: '70%',
+        radius: '80%'
+      }
+    });
+
+    function simulateAccident() {
+      document.getElementById("alertBox").style.display = "block";
+      let countdown = 5;
+      const countdownSpan = document.getElementById("countdown");
+      const siren = document.getElementById("siren");
+      siren.play();
+
+      const msg = new SpeechSynthesisUtterance("Emergency detected. Sending alerts to registered contacts.");
+      speechSynthesis.speak(msg);
+
+      const timer = setInterval(() => {
+        countdown--;
+        countdownSpan.innerText = countdown;
+        if (countdown === 0) {
+          clearInterval(timer);
+          sendEmergencyAlert();
+        }
+      }, 1000);
+
+      navigator.geolocation.getCurrentPosition(position => {
+        const lat = position.coords.latitude;
+        const long = position.coords.longitude;
+        const loc = `Latitude: ${lat.toFixed(4)}, Longitude: ${long.toFixed(4)}`;
+        document.getElementById("locationDisplay").innerText = `Live Location: ${loc}`;
+        document.getElementById("mapFrame").src = `https://maps.google.com/maps?q=${lat},${long}&z=15&output=embed`;
+      });
+    }
+
+    function sendEmergencyAlert() {
+      fetch('http://localhost:3000/send-alert', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          message: 'Emergency! Accident detected. Location: check Google Map.',
+          recipients: ['+919876543210', '+919876543211', '+919876543212']
+        })
+      })
+      .then(res => res.json())
+      .then(data => alert(data.message))
+      .catch(() => alert("Failed to send alert."));
+    }
+  </script>
+</body>
+</html>
+
